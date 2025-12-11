@@ -2,9 +2,9 @@ import './settings.css'
 
 export function Settings({ onBack, musicVolume, setMusicVolume, sfxVolume, setSfxVolume, useHorrorFont, setUseHorrorFont }) {
     return (
-        <div id='settings-screen'>
+        <div id='settings-screen' className={useHorrorFont ? 'horror-font' : 'default-font'}>
             <div className='settings-container'>
-                <h1 className={`settings-title ${useHorrorFont ? 'horror-font' : 'default-font'}`}>
+                <h1 className='settings-title'>
                     ⚙ Settings ⚙
                 </h1>
                 

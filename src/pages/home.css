@@ -7,20 +7,7 @@
   font-family: Verdana, sans-serif;
 }
 
-/* Blood drip animation */
-@keyframes bloodDrip {
-  0% {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(100vh);
-    opacity: 0;
-  }
-}
+
 
 /* Floating animation */
 @keyframes float {
@@ -96,27 +83,11 @@
   z-index: 1;
 }
 
-/* Blood drip elements */
-#home-screen::after {
-  content: "";
-  position: absolute;
-  top: -50px;
-  left: 20%;
-  width: 2px;
-  height: 100px;
-  background: linear-gradient(
-    to bottom,
-    rgba(139, 0, 0, 0) 0%,
-    rgba(139, 0, 0, 0.8) 50%,
-    rgba(139, 0, 0, 0) 100%
-  );
-  animation: bloodDrip 8s infinite;
-  animation-delay: 2s;
-  z-index: 1;
-}
+
 
 #title {
   font-size: 5rem;
+  font-family: "Creepster", cursive;
   color: #ff0000;
   margin-bottom: 3rem;
   text-shadow: 0 0 10px #8b0000, 0 0 20px #8b0000, 0 0 30px #4a0000,
@@ -128,12 +99,10 @@
   filter: drop-shadow(0 0 15px rgba(139, 0, 0, 0.8));
 }
 
-#title.horror-font {
-  font-family: "Creepster", cursive;
-}
-
-#title.default-font {
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+/* Override all fonts when default-font is active */
+#home-screen.default-font,
+#home-screen.default-font * {
+  font-family: Verdana, Geneva, Tahoma, sans-serif !important;
 }
 
 #options {

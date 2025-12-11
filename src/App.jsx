@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Home } from './pages/home'
 import { Settings } from './pages/settings'
+import { SceneOne } from './pages/SceneOne'
 import './App.css'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
       {currentPage === 'home' && (
         <Home 
           onSettingsClick={() => setCurrentPage('settings')}
+          onNewGameClick={() => setCurrentPage('sceneOne')}
           useHorrorFont={useHorrorFont}
         />
       )}
@@ -26,6 +28,11 @@ function App() {
           setSfxVolume={setSfxVolume}
           useHorrorFont={useHorrorFont}
           setUseHorrorFont={setUseHorrorFont}
+        />
+      )}
+      {currentPage === 'sceneOne' && (
+        <SceneOne 
+          useHorrorFont={useHorrorFont}
         />
       )}
     </>

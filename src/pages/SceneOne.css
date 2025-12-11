@@ -1,0 +1,122 @@
+/* Scene One Styling */
+#scene-one {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(20, 0, 0, 0.6)),
+        url('/d-bg1.png') center no-repeat;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animated Fog Layers */
+.fog-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    pointer-events: none;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 30%,
+        rgba(255, 255, 255, 0.3) 50%,
+        rgba(255, 255, 255, 0.2) 70%,
+        rgba(255, 255, 255, 0) 100%
+    );
+}
+
+.fog-layer-1 {
+    z-index: 1;
+    animation: fogMove1 30s ease-in-out infinite;
+    opacity: 0.4;
+}
+
+.fog-layer-2 {
+    z-index: 2;
+    animation: fogMove2 40s ease-in-out infinite;
+    opacity: 0.3;
+    animation-delay: -10s;
+}
+
+.fog-layer-3 {
+    z-index: 3;
+    animation: fogMove3 50s ease-in-out infinite;
+    opacity: 0.35;
+    animation-delay: -20s;
+}
+
+@keyframes fogMove1 {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(0) translateY(-10px);
+    }
+}
+
+@keyframes fogMove2 {
+    0%, 100% {
+        transform: translateX(0) translateY(0);
+    }
+    50% {
+        transform: translateX(-30%) translateY(15px);
+    }
+}
+
+@keyframes fogMove3 {
+    0%, 100% {
+        transform: translateX(-25%) translateY(5px);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-5px);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    #scene-one {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(20, 0, 0, 0.6)),
+            url('/m-bg1.png') center no-repeat;
+        background-size: cover;
+    }
+}
+
+/* Interactive Fog Dispersion */
+.fog-dispersion {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    margin-left: -200px;
+    margin-top: -200px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0) 40%,
+        rgba(255, 255, 255, 0.3) 60%,
+        rgba(255, 255, 255, 0.6) 100%
+    );
+    pointer-events: none;
+    z-index: 10;
+    mix-blend-mode: difference;
+    animation: disperseFog 2s ease-out forwards;
+}
+
+@keyframes disperseFog {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: scale(2.5);
+        opacity: 0;
+    }
+}
