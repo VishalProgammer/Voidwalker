@@ -168,6 +168,136 @@
 }
 
 
+/* Health Bar */
+.health-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 200px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #8b0000;
+    border-radius: 5px;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+}
+
+.health-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ff0000, #8b0000);
+    transition: width 0.5s ease-out;
+}
+
+.health-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #000;
+    font-size: 0.9rem;
+}
+
+/* Battle Ghost */
+.battle-ghost-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 40;
+    cursor: pointer;
+}
+
+.battle-ghost-img {
+    width: 150px; /* Small size as requested */
+    height: auto;
+    filter: drop-shadow(0 0 10px red);
+    transition: transform 0.1s;
+}
+
+.battle-ghost-img:active {
+    transform: scale(0.95);
+}
+
+.battle-ghost-img.attack-mode {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: 100;
+    transform: translate(-50%, -50%);
+    animation: attackScale 0.5s ease-out forwards;
+}
+
+@keyframes attackScale {
+    0% { transform: translate(-50%, -50%) scale(0.1); opacity: 0; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+/* Timer Bar */
+.timer-bar-bg {
+    width: 100%;
+    height: 10px;
+    background: #333;
+    border: 1px solid #fff;
+    margin-top: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.timer-bar-fill {
+    height: 100%;
+    background: #ff0000;
+    width: 100%;
+    /* Animation duration set inline */
+    animation-name: timerReduce;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes timerReduce {
+    from { width: 100%; }
+    to { width: 0%; }
+}
+
+/* Red Flash */
+.red-flash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: red;
+    opacity: 0;
+    z-index: 200;
+    pointer-events: none;
+    animation: flashRed 0.5s ease-out;
+}
+
+@keyframes flashRed {
+    0% { opacity: 0.8; }
+    100% { opacity: 0; }
+}
+
+/* Evil Ghost Reveal */
+.ghost.evil-large {
+    height: 90vh;
+    filter: drop-shadow(0 0 20px #ff0000);
+    animation: pulseEvil 2s infinite;
+}
+
+@keyframes pulseEvil {
+    0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px #ff0000); }
+    50% { transform: scale(1.05); filter: drop-shadow(0 0 40px #ff0000); }
+}
+
 /* Dialogue Box (Ren'Py Style) */
 .dialogue-box {
     position: absolute;
