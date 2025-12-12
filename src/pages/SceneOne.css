@@ -86,37 +86,202 @@
     }
 }
 
-/* Interactive Fog Dispersion */
-.fog-dispersion {
+/* Characters Container */
+.characters-container {
     position: absolute;
-    width: 400px;
-    height: 400px;
-    margin-left: -200px;
-    margin-top: -200px;
-    border-radius: 50%;
-    background: radial-gradient(
-        circle,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0) 40%,
-        rgba(255, 255, 255, 0.3) 60%,
-        rgba(255, 255, 255, 0.6) 100%
-    );
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
     pointer-events: none;
-    z-index: 10;
-    mix-blend-mode: difference;
-    animation: disperseFog 2s ease-out forwards;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
-@keyframes disperseFog {
+/* Character Base Styles */
+.character {
+    position: absolute;
+    height: 80vh; /* Adjust based on asset size */
+    transition: all 1s ease-in-out;
+}
+
+.character.ghost {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+    opacity: 0.9;
+}
+
+/* Animations & Positions */
+.ghost-enter-zigzag {
+    animation: zigZagEnter 3s ease-out forwards, ghostFloat 3s ease-in-out infinite 3s; /* Delay float until enter done */
+    right: 50%; /* Start conceptual right for keyframe reference */
+}
+
+/* Zig Zag Entrance Animation */
+@keyframes zigZagEnter {
     0% {
-        transform: scale(0);
-        opacity: 1;
-    }
-    50% {
-        opacity: 1;
-    }
-    100% {
-        transform: scale(2.5);
+        transform: translateX(100vw) translateY(-50px);
         opacity: 0;
     }
+    25% {
+        transform: translateX(50vw) translateY(50px);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translateX(25vw) translateY(-30px);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateX(0) translateY(0); /* Ends in middle */
+        opacity: 1;
+    }
 }
+
+.ghost-move-right {
+    transform: translateX(30vw); /* Move to right */
+    animation: ghostFloat 3s ease-in-out infinite;
+}
+
+.character.hero {
+    transform: translateX(-30vw); /* Left side */
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes ghostFloat {
+    0%, 100% {
+        margin-top: 0;
+    }
+    50% {
+        margin-top: -20px;
+    }
+}
+
+
+/* Dialogue Box (Ren'Py Style) */
+.dialogue-box {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 150px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid #8b0000;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 20;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+}
+
+.name-box {
+    font-size: 1.5rem;
+    color: #ff0000;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px #8b0000;
+}
+
+.text-box {
+    font-size: 1.2rem;
+    color: #ffffff;
+    line-height: 1.4;
+}
+
+.click-indicator {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    color: #ff0000;
+    animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+}
+
+/* Choice Menu Styling */
+.choice-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 30;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.choice-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 400px;
+    text-align: center;
+}
+
+.choice-title {
+    color: #ccc;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 5px red;
+}
+
+.choice-btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background: rgba(0, 0, 0, 0.9);
+    border: 2px solid #8b0000;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: inherit; /* Use scene font */
+}
+
+.choice-btn:hover {
+    background: #8b0000;
+    transform: scale(1.05);
+}
+
+/* Font Overrides for Dialogue */
+#scene-one.horror-font .dialogue-box,
+#scene-one.horror-font .choice-container {
+    font-family: 'Metal Mania', cursive;
+}
+
+#scene-one.default-font .dialogue-box,
+#scene-one.default-font .choice-container {
+    font-family: Verdana, sans-serif;
+}
+/* Initial Fog Clearing Animation (Fade Only) */
+.fog-layer {
+    transition: opacity 3s ease-in-out;
+}
+
+.fog-initial-clear .fog-layer-1 {
+    opacity: 0.1;
+}
+
+.fog-initial-clear .fog-layer-2 {
+    opacity: 0.05;
+}
+
+.fog-initial-clear .fog-layer-3 {
+    opacity: 0.08;
+}
+
