@@ -60,7 +60,7 @@
   justify-content: center;
   height: 100vh;
   background: linear-gradient(rgba(0, 0, 0, 0.291), rgba(20, 0, 0, 0.386)),
-    url("./d-home.png") center no-repeat;
+    url("/d-home.png") center no-repeat;
   background-size: cover;
   position: relative;
   overflow: hidden;
@@ -176,7 +176,7 @@
 
   #home-screen {
     background: linear-gradient(rgba(0, 0, 0, 0.291), rgba(20, 0, 0, 0.386)),
-      url("./m-home.png") center no-repeat;
+      url("/m-home.png") center no-repeat;
     background-size: cover;
   }
 }

@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import { BattleGhost } from '../components/BattleGhost'
+import { BattleSystem } from '../components/BattleSystem'
 import { getDialogues } from '../data/sceneOneDialogues'
 import './SceneOne.css'
 
-export function SceneOne({ useHorrorFont }) {
+export function SceneOne({ useHorrorFont, onDeath, onComplete }) {
     const [isClearing, setIsClearing] = useState(false)
     const [step, setStep] = useState(0)
     const [showGhost, setShowGhost] = useState(false)
@@ -20,6 +20,13 @@ export function SceneOne({ useHorrorFont }) {
         return () => clearTimeout(timer)
     }, [])
 
+    // Death Check
+    useEffect(() => {
+        if (health <= 0) {
+            if (onDeath) onDeath("Consumed by the Void")
+        }
+    }, [health, onDeath])
+
     const triggerDamage = (amount) => {
         setHealth(prev => Math.max(0, prev - amount))
         setFlash(true)
@@ -27,12 +34,8 @@ export function SceneOne({ useHorrorFont }) {
     }
 
     const handleStep = (e) => {
-        // Special Case: Next after success message
-        if (battlePhase === 'tutorial_pass') {
-            setBattlePhase('tutorial_2')
-            setStep(11) // Sync to damage dialogue
-            return
-        }
+        // Prevent interaction during choice steps
+        if (step === 3 || step === 15) return
 
         if (battlePhase) return 
 
@@ -45,6 +48,9 @@ export function SceneOne({ useHorrorFont }) {
 
         if (step < maxSteps) {
             setStep(prev => prev + 1)
+        } else {
+            // Scene Complete
+             if (onComplete) onComplete()
         }
     }
     
@@ -75,6 +81,7 @@ export function SceneOne({ useHorrorFont }) {
     const handleChoice = (selectedBranch) => {
         if (battlePhase === 'reveal') {
             console.log("ESCAPING!") 
+            if (onComplete) onComplete()
             return
         }
         setBranch(selectedBranch)
@@ -153,12 +160,16 @@ export function SceneOne({ useHorrorFont }) {
                 )}
             </div>
 
+
             {battlePhase === 'tutorial_1' && (
-                <BattleGhost 
+                <BattleSystem 
                     type="ghost-a1" 
-                    duration={180000} 
                     onWin={() => {
-                        setBattlePhase('tutorial_pass')
+                        if (health < 100) {
+                            setBattlePhase('betrayal_dialogue')
+                        } else {
+                            setBattlePhase('tutorial_pass')
+                        }
                     }}
                     onLose={() => {
                         setBattlePhase('betrayal_dialogue')
@@ -168,10 +179,10 @@ export function SceneOne({ useHorrorFont }) {
             )}
 
             {battlePhase === 'tutorial_2' && (
-                 <BattleGhost 
+                 <BattleSystem 
                     type="ghost-a2" 
                     duration={500} 
-                    isUnclickable={true}
+                    onWin={() => setBattlePhase('betrayal_dialogue')}
                     onLose={() => {
                         setBattlePhase('betrayal_dialogue') 
                     }}

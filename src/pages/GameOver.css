@@ -1,0 +1,65 @@
+#game-over-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    background: black;
+    color: red;
+    z-index: 1000;
+}
+
+.game-over-title {
+    font-size: 6rem;
+    color: #ff0000;
+    text-shadow: 0 0 20px #8b0000;
+    margin-bottom: 2rem;
+    animation: pulseDeath 3s infinite;
+}
+
+.death-cause {
+    font-size: 1.5rem;
+    color: #888;
+    margin-bottom: 4rem;
+    font-family: inherit;
+}
+
+.cause-text {
+    color: #fff;
+    text-decoration: underline;
+    text-decoration-color: #8b0000;
+}
+
+.game-over-options {
+    display: flex;
+    gap: 2rem;
+}
+
+.retry-btn, .die-btn {
+    padding: 1rem 3rem;
+    font-size: 1.5rem;
+    background: transparent;
+    border: 2px solid #333;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: inherit;
+}
+
+.retry-btn:hover {
+    border-color: #fff;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.die-btn:hover {
+    border-color: #ff0000;
+    color: #ff0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+}
+
+@keyframes pulseDeath {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.05); }
+}
